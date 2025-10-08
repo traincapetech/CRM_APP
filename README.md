@@ -1,97 +1,292 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Calyx CRM - Complete Customer Relationship Management System
 
-# Getting Started
+A comprehensive CRM application built with React Native (mobile app) and Node.js (backend server) that serves both mobile and web clients.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🚀 Features
 
-## Step 1: Start Metro
+### Core CRM Modules
+- **Dashboard** - Overview of sales metrics, activities, and recent updates
+- **Pipeline Management** - Visual sales pipeline with drag-and-drop stages
+- **Customer Management** - Complete customer database with contact information
+- **Lead Management** - Track and convert leads through the sales process
+- **Activity Tracking** - Schedule and manage calls, meetings, tasks, and notes
+- **Team Management** - Organize sales teams and assign responsibilities
+- **Sales Forecast** - Revenue projections and pipeline analysis
+- **Advanced Filtering** - Powerful search and filter capabilities across all modules
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### Technical Features
+- **Real-time Updates** - Live data synchronization
+- **Offline Support** - Works without internet connection
+- **Import/Export** - Spreadsheet integration for data management
+- **Responsive Design** - Optimized for mobile and tablet devices
+- **Role-based Access** - Admin, Manager, and Salesperson permissions
+- **Secure Authentication** - JWT-based authentication system
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 📱 Mobile App Structure
 
-```sh
-# Using npm
+```
+src/
+├── screens/
+│   ├── auth/
+│   │   └── LoginScreen.jsx
+│   ├── dashboard/
+│   │   └── DashboardScreen.jsx
+│   ├── pipeline/
+│   │   └── PipelineScreen.jsx
+│   ├── activities/
+│   │   └── ActivitiesScreen.jsx
+│   ├── teams/
+│   │   └── TeamsScreen.jsx
+│   ├── customers/
+│   │   └── CustomersScreen.jsx
+│   ├── forecast/
+│   │   └── ForecastScreen.jsx
+│   ├── leads/
+│   │   └── LeadsScreen.jsx
+│   └── settings/
+│       └── SettingsScreen.jsx
+├── context/
+│   └── AuthContext.jsx
+└── services/
+    └── api.js
+```
+
+## 🖥️ Backend Server Structure
+
+```
+server/
+├── models/
+│   ├── User.js
+│   ├── Team.js
+│   ├── Customer.js
+│   ├── Pipeline.js
+│   ├── Opportunity.js
+│   ├── Activity.js
+│   └── Lead.js
+├── routes/
+│   ├── auth.js
+│   ├── users.js
+│   ├── customers.js
+│   ├── pipeline.js
+│   ├── activities.js
+│   ├── teams.js
+│   ├── forecast.js
+│   ├── leads.js
+│   └── config.js
+├── middleware/
+│   └── auth.js
+├── server.js
+└── package.json
+```
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+- Node.js (>= 18)
+- MongoDB
+- React Native development environment
+- Android Studio / Xcode
+
+### 1. Clone and Install Dependencies
+
+```bash
+# Install mobile app dependencies
+npm install
+
+# Install server dependencies
+cd server
+npm install
+cd ..
+```
+
+### 2. Database Setup
+
+Make sure MongoDB is running on your system:
+
+```bash
+# Start MongoDB (macOS with Homebrew)
+brew services start mongodb-community
+
+# Or start MongoDB service
+mongod
+```
+
+### 3. Environment Configuration
+
+Create a `.env` file in the server directory:
+
+```bash
+cd server
+cp config.env .env
+```
+
+Update the `.env` file with your configuration:
+
+```env
+PORT=3000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/calyxcrm
+JWT_SECRET=your_jwt_secret_key_here
+JWT_EXPIRE=7d
+CORS_ORIGIN=http://localhost:3000,http://localhost:8081
+```
+
+### 4. Start the Backend Server
+
+```bash
+# Development mode with auto-reload
+npm run server
+
+# Or production mode
+npm run server:start
+```
+
+The server will start on `http://localhost:3000`
+
+### 5. Start the React Native App
+
+```bash
+# Start Metro bundler
 npm start
 
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+# Run on Android (in a new terminal)
 npm run android
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# Run on iOS (in a new terminal)
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🔧 API Endpoints
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - User login
+- `GET /api/auth/me` - Get current user
+- `POST /api/auth/logout` - User logout
 
-## Step 3: Modify your app
+### CRM Modules
+- `GET /api/customers` - Get all customers
+- `POST /api/customers` - Create customer
+- `GET /api/pipeline` - Get sales pipelines
+- `GET /api/activities` - Get activities
+- `GET /api/teams` - Get teams
+- `GET /api/forecast` - Get sales forecast
+- `GET /api/leads` - Get leads
 
-Now that you have successfully run the app, let's make changes!
+## 📊 Database Models
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### User
+- Personal information and authentication
+- Role-based permissions (admin, manager, salesperson)
+- Team assignments
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Customer
+- Contact information and company details
+- Sales history and relationship tracking
+- Custom fields support
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### Pipeline
+- Configurable sales stages
+- Visual pipeline management
+- Stage-specific probabilities
 
-## Congratulations! :tada:
+### Opportunity
+- Sales deals with values and probabilities
+- Customer and salesperson assignments
+- Expected close dates
 
-You've successfully run and modified your React Native App. :partying_face:
+### Activity
+- Tasks, calls, meetings, and notes
+- Due dates and priority levels
+- Customer and opportunity associations
 
-### Now what?
+### Lead
+- Lead generation and qualification
+- Source tracking and scoring
+- Conversion to customers
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+### Team
+- Sales team organization
+- Revenue targets and performance
+- Member management
 
-# Troubleshooting
+## 🎨 UI Components
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+The app uses React Native Paper components for a consistent Material Design experience:
 
-# Learn More
+- **Navigation**: Bottom tabs with drawer navigation
+- **Cards**: Information display with elevation
+- **Forms**: Input fields with validation
+- **Lists**: Searchable and filterable data
+- **Charts**: Visual data representation
+- **Modals**: Interactive dialogs and forms
 
-To learn more about React Native, take a look at the following resources:
+## 🔐 Security Features
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- JWT-based authentication
+- Password hashing with bcrypt
+- Role-based access control
+- Input validation and sanitization
+- CORS protection
+- Rate limiting
+
+## 📱 Mobile Features
+
+- **Offline Support**: Core functionality works without internet
+- **Push Notifications**: Activity reminders and updates
+- **Camera Integration**: Photo capture for activities
+- **File Upload**: Document and attachment support
+- **GPS Integration**: Location-based features
+
+## 🌐 Web Integration
+
+The backend server is designed to serve both mobile and web clients:
+
+- RESTful API endpoints
+- CORS configuration for web access
+- Shared authentication system
+- Real-time updates via WebSocket (future)
+
+## 🚀 Deployment
+
+### Backend Deployment
+1. Set up MongoDB Atlas or local MongoDB
+2. Configure environment variables
+3. Deploy to Heroku, AWS, or your preferred platform
+
+### Mobile App Deployment
+1. Build release APK/IPA
+2. Deploy to Google Play Store / App Store
+3. Configure push notification services
+
+## 📈 Future Enhancements
+
+- **Real-time Chat**: Internal team communication
+- **Advanced Analytics**: Detailed reporting and insights
+- **Email Integration**: Sync with email providers
+- **Calendar Integration**: Schedule synchronization
+- **Document Management**: File storage and sharing
+- **API Integrations**: Third-party service connections
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Contact the development team
+- Check the documentation
+
+---
+
+**Calyx CRM** - Streamline your customer relationships and boost sales performance! 🎯
